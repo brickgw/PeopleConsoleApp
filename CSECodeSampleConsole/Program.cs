@@ -30,6 +30,7 @@ namespace CSECodeSampleConsole
             var menu = new UserMenu();
             menu.Display();
         }
+
     }
 
     //internal class Person

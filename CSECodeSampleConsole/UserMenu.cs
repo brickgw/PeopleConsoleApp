@@ -9,12 +9,12 @@ namespace CSECodeSampleConsole
     public class UserMenu
     {
         private bool _exitRequested;
-        private PeopleRepository _repo;
+        private readonly IRepository<Person> _repo;
         private Dictionary<int, Action> _menuItemMap;
         
         public UserMenu()
         {
-            _repo = new PeopleRepository();
+            _repo = new InMemoryPeopleRepository();
             _menuItemMap = new Dictionary<int, Action>();
             InitializeMenuItems();            
         }
@@ -27,7 +27,7 @@ namespace CSECodeSampleConsole
 
             try
             {
-                Console.WriteLine("1.) View Persons");
+                Console.WriteLine("\n1.) View Persons");
                 Console.WriteLine("2.) Add Person");
                 Console.WriteLine("3.) Exit");
                 Console.Write("\nPlease Enter Your Selection: ");
@@ -54,11 +54,8 @@ namespace CSECodeSampleConsole
             {
                 Console.Write("\nPlease Enter The Name Of The Person You Would Like To Add: ");
                 var input = Console.ReadLine();
-
-                var personToAdd = new Person();
-                personToAdd.Name = input;
-
-                _repo.Insert(personToAdd);
+                
+                _repo.Create(input);
                 
             }
             catch (ArgumentNullException)
@@ -79,7 +76,7 @@ namespace CSECodeSampleConsole
 
                 Console.WriteLine($"\nDisplaying ({personsList.Count}) People");
                 foreach(var person in personsList)
-                    Console.WriteLine($"\t{person.Id} - {person.Name}");
+                    Console.WriteLine($"\t{personsList.IndexOf(person)}.) {person.Id} - {person.Name}");
                 
             }
             catch(Exception)
@@ -102,7 +99,7 @@ namespace CSECodeSampleConsole
         {
             Console.Write("\nAre You Sure You Would Like To Exit? [Y/N]: ");
             var input = Console.ReadLine();
-
+            
             if (input.Equals("y", StringComparison.InvariantCultureIgnoreCase))
                 _exitRequested = true;
 
