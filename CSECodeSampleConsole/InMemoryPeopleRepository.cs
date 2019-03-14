@@ -72,7 +72,7 @@ namespace CSECodeSampleConsole
             if (!_people.Any() || _people == null)
                 throw new NullReferenceException("Cannot Search Null Or Empty Collection.");
 
-            entities = _people.Where(p => p.Name.Contains(name)).ToList();
+            entities = _people.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
             if (entities.Any())
                 return true;
 

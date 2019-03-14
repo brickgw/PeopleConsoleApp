@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="RepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UniqueIdTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
